@@ -3,8 +3,14 @@ WildFly 11.0.0.Final with a few docker build helpers:
 - environment variables can be used in CLI parameter values
 
 ## Build
+### Local:
 ```shell
 docker build --tag humanswitch/wildfly11 .
+```
+### GitHub
+```shell
+docker build --tag humanswitch/wildfly11 \
+  https://github.com/humanswitch/docker.git#:wildfly11
 ```
 
 ## Run

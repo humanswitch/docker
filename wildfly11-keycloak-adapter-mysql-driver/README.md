@@ -7,8 +7,13 @@ WildFly 11.0.0.Final with:
    by installing and configuring the MySQL 5.1.46 JDBC driver. It also provides in a WildFly cli script `add-xa-datasource.cli` which can be used in child images.
 
 ## Build
+### Local
 ```shell
 docker build --tag humanswitch/wildfly11-keycloak-adapter-mysql-driver .
+```
+### GitHub
+```shell
+docker build --tag humanswitch/wildfly11-mysql-driver https://github.com/humanswitch/docker.git#:wildfly11-mysql-driver
 ```
 
 ## Run

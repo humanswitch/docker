@@ -1,8 +1,14 @@
 WildFly 11.0.0.Final with the Keycloak WildFly adapter to provide OIDC support.
 
 ## Build
+### Local
 ```shell
 docker build --tag humanswitch/wildfly11-keycloak-adapter .
+```
+### GitHub
+```shell
+docker build --tag humanswitch/wildfly11-keycloak-adapter \
+  https://github.com/humanswitch/docker.git#:wildfly11-keycloak-adapter
 ```
 
 ## Run
