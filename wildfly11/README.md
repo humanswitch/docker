@@ -20,5 +20,5 @@ docker run -it --rm humanswitch/wildfly11
 ```
 
 ## Credits
-Credits go to [Marek Goldmann](https://github.com/goldmann/wildfly-docker-configuration) for the "execute<span></span>.sh" (in this project called _jboss-cli-docker<span></span>.sh_) script which makes it possible to modify WildFly configuration easily during the Docker build process.
+Credits go to [Marek Goldmann](https://github.com/goldmann/wildfly-docker-configuration) for the "execute.sh" (in this project called _jboss-cli-docker.sh_) script which makes it possible to modify WildFly configuration easily during the Docker build process.
 
