@@ -1,0 +1,11 @@
+# Mark the commands below to be run as a batch
+batch
+
+# Add module
+module add --name=com.mysql.jdbc --slot=main --resources=/tmp/${MYSQL_CONNECTOR_FILENAME}/${MYSQL_CONNECTOR_JAR} --dependencies=javax.api,javax.transaction.api
+
+# Add MySQL driver
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql.jdbc,driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
+
+# Execute the batch
+run-batch

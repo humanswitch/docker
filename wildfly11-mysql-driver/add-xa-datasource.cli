@@ -1,0 +1,11 @@
+# Mark the commands below to be run as a batch
+batch
+
+# Add the datasource
+xa-data-source add --name=${DS_NAME} --driver-name=mysql --jndi-name=${DS_JNDI_NAME} --user-name=${DS_USER_NAME} --password=${DS_PASSWORD}
+/subsystem=datasources/xa-data-source=${DS_NAME}/xa-datasource-properties=ServerName:add(value=${DS_SERVERNAME})
+/subsystem=datasources/xa-data-source=${DS_NAME}/xa-datasource-properties=DatabaseName:add(value=${DS_DATABASENAME})
+/subsystem=datasources/xa-data-source=${DS_NAME}/xa-datasource-properties=useSSL:add(value=false)
+
+# Execute the batch
+run-batch

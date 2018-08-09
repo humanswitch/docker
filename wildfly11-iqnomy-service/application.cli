@@ -1,0 +1,14 @@
+# Mark the commands below to be run as a batch
+batch
+
+# Set application home folder system property
+/system-property=${HS_APP_NAME}.home:add(value="/srv/humanswitch-app")
+
+# Change http binding so it can deal with a reversed proxy
+/socket-binding-group=standard-sockets/socket-binding=proxy-https/:add(port=443)
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=redirect-socket, value=proxy-https)
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=proxy-address-forwarding, value=true)
+/subsystem=undertow/server=default-server/http-listener=default:undefine-attribute(name=enable-http2)
+
+# Execute the batch
+run-batch

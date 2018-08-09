@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  myapp:
+    container_name: myapp
+    restart: always
+    ports:
+      - ${PORT_HTTP}:8080
+    volumes:
+      - ${APP_FOLDER}:/srv/humanswitch-app/
+    build: 
+      context: .
+      args:
+        HS_APP_NAME: myapp
+        HS_APP_DEPLOYFILENAME: myapp.war
+        DS_SERVERNAME: mysql.local
+        DS_USER_NAME: myapp
+        DS_PASSWORD: myapp_secret
+        DS_DATABASENAME: myapp
