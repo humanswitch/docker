@@ -13,7 +13,8 @@ docker build --tag humanswitch/wildfly11-keycloak-adapter-mysql-driver .
 ```
 ### GitHub
 ```shell
-docker build --tag humanswitch/wildfly11-mysql-driver https://github.com/humanswitch/docker.git#:wildfly11-mysql-driver
+docker build --tag humanswitch/wildfly11-keycloak-adapter-mysql-driver \
+  https://github.com/humanswitch/docker.git#:wildfly11-keycloak-adapter-mysql-driver
 ```
 
 ## Run
