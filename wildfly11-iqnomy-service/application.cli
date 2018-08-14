@@ -10,5 +10,20 @@ batch
 /subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=proxy-address-forwarding, value=true)
 /subsystem=undertow/server=default-server/http-listener=default:undefine-attribute(name=enable-http2)
 
+# Add CORS headers
+/subsystem=undertow/configuration=filter/response-header=acao-header:add(header-name="Access-Control-Allow-Origin", header-value="*")
+/subsystem=undertow/configuration=filter/response-header=acam-header:add(header-name="Access-Control-Allow-Methods", header-value="GET,POST,DELETE,PUT,OPTIONS")
+/subsystem=undertow/configuration=filter/response-header=acah-header:add(header-name="Access-Control-Allow-Headers", header-value="Content-Type,api_key,Authorization")
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=acao-header:add
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=acam-header:add
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=acah-header:add
+
+
+# Remove default server info headers
+/subsystem=undertow/configuration=filter/response-header=server-header:remove
+/subsystem=undertow/configuration=filter/response-header=x-powered-by-header:remove
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=server-header:remove
+/subsystem=undertow/server=default-server/host=default-host/filter-ref=x-powered-by-header:remove
+
 # Execute the batch
 run-batch
