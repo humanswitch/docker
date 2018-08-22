@@ -21,7 +21,6 @@ batch
 /subsystem=logging/pattern-formatter=ACCESS-LOG-FORMATTER:add(pattern="%s%n")
 /subsystem=logging/periodic-size-rotating-file-handler=FILE_ACCESS_LOG:add(append=true, autoflush=true, named-formatter=ACCESS-LOG-FORMATTER, max-backup-index=10, rotate-size=50m, suffix=.yyyy-MM-dd, file={relative-to=jboss.server.log.dir, path=access_log.log})
 /subsystem=logging/logger=io.undertow.accesslog:add(use-parent-handlers=false)
-#/subsystem=logging/logger=io.undertow.accesslog:add-handler(name=FILE_ACCESS_LOG)
 
 # Add CORS headers
 /subsystem=undertow/configuration=filter/response-header=acao-header:add(header-name="Access-Control-Allow-Origin", header-value="*")
