@@ -10,6 +10,18 @@ batch
 /subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=proxy-address-forwarding, value=true)
 /subsystem=undertow/server=default-server/http-listener=default:undefine-attribute(name=enable-http2)
 
+# Replace root logger: use periodic-size-rotating-file-handler (10 * 50MB) instead of periodic-rotating-file-handler
+/subsystem=logging/root-logger=ROOT:remove-handler(name=FILE)
+/subsystem=logging/periodic-rotating-file-handler=FILE:remove
+/subsystem=logging/periodic-size-rotating-file-handler=FILE:add(append=true, autoflush=true, named-formatter=PATTERN, max-backup-index=10, rotate-size=50m, suffix=.yyyy-MM-dd, file={relative-to=jboss.server.log.dir, path=server.log})
+/subsystem=logging/root-logger=ROOT:add-handler(name=FILE)
+
+# Create and activate access log logger
+/subsystem=undertow/server=default-server/host=default-host/setting=access-log:add(use-server-log=true)
+/subsystem=logging/pattern-formatter=ACCESS-LOG-FORMATTER:add(pattern="%s%n")
+/subsystem=logging/periodic-size-rotating-file-handler=FILE_ACCESS_LOG:add(append=true, autoflush=true, named-formatter=ACCESS-LOG-FORMATTER, max-backup-index=10, rotate-size=50m, suffix=.yyyy-MM-dd, file={relative-to=jboss.server.log.dir, path=access_log.log})
+/subsystem=logging/logger=io.undertow.accesslog:add(use-parent-handlers=false)
+
 # Add CORS headers
 /subsystem=undertow/configuration=filter/response-header=acao-header:add(header-name="Access-Control-Allow-Origin", header-value="*")
 /subsystem=undertow/configuration=filter/response-header=acam-header:add(header-name="Access-Control-Allow-Methods", header-value="GET,POST,DELETE,PUT,OPTIONS")
@@ -18,7 +30,6 @@ batch
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=acam-header:add
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=acah-header:add
 
-
 # Remove default server info headers
 /subsystem=undertow/configuration=filter/response-header=server-header:remove
 /subsystem=undertow/configuration=filter/response-header=x-powered-by-header:remove
@@ -26,4 +37,13 @@ batch
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=x-powered-by-header:remove
 
 # Execute the batch
+run-batch
+
+# These one need to be run after the previous batch is done
+
+batch
+
+# add access log handler
+/subsystem=logging/logger=io.undertow.accesslog:add-handler(name=FILE_ACCESS_LOG)
+
 run-batch
