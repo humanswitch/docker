@@ -23,3 +23,5 @@ RUN cd $HOME \
 # Cleanup
 RUN chown -R jboss:0 ${JBOSS_HOME} \
     && chmod -R g+rw ${JBOSS_HOME}
+
+USER jboss
