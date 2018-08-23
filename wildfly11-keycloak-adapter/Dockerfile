@@ -15,3 +15,5 @@ RUN cd $HOME \
     && rm -rf ${JBOSS_HOME}/standalone/configuration/standalone_xml_history/current \
     && chown -R jboss:0 ${JBOSS_HOME} \
     && chmod -R g+rw ${JBOSS_HOME}
+
+USER jboss
